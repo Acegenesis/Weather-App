@@ -2,6 +2,19 @@
 
 A little website to show the weather
 
+##TO DO
+
+- [X] Vue template clean
+- [X] Global layout and css
+- [ ] A slider for the multiple city
+- [ ] Connection to API openweather
+- [ ] Get data and show it
+- [ ] Animations CSS
+- [ ] Sidebar with city fastaccess
+- [ ] Add city fonction in sidebar
+- [ ] DB for stats 
+- [ ] Optimisations to algorithms
+
 ## Project Setup
 
 ```sh
@@ -19,3 +32,4 @@ npm run dev
 ```sh
 npm run build
 ```
+
