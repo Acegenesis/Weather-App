@@ -2,7 +2,7 @@
 
 A little website to show the weather
 
-##TO DO
+## TO DO
 
 - [X] Vue template clean
 - [X] Global layout and css
