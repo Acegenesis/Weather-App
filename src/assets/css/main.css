@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'SF Compact Display Thin';
+    font-style: normal;
+    font-weight: normal;
+    src: local('SF Compact Display Thin'), url('../fonts/sf-thin.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'SF Compact Display Medium';
+    font-style: normal;
+    font-weight: normal;
+    src: local('SF Compact Display Medium'), url('../fonts/sf-medium.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Ledger Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Ledger Regular'), url('../fonts/Ledger-Regular.ttf') format('openType');
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    background-color: #FFE142;
+}
+
+.day {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.day h1 {
+    font-family: 'SF Compact Display Medium';
+    font-size: 40px;
+    color: #000000;
+    margin-bottom: 30px;
+    font-weight: bolder;
+}
+
+.day h2 {
+    font-family: 'SF Compact Display Thin';
+    font-size: 20px;
+    color: #FFE142;
+    padding: 3px 15px;
+    background-color: #000000;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+
+.day h3 {
+    font-family: 'SF Compact Display Medium';
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.temperature {
+    margin: 40px 0 80px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 400px;
+    line-height: 0.8;
+    color: #000000;
+}
+
+.temperature p:nth-child(1) {
+    font-family: 'SF Compact Display Thin';
+    font-weight: bolder;
+}
+
+.temperature p:nth-child(2) {
+    font-family: 'SF Compact Display Medium';
+}
+
+.moreInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.summary {
+    font-size: 20px;
+    color: #000000;
+}
+
+.summary h4 {
+    font-family: 'SF Compact Display Medium';
+    font-size: 25px;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.summary p {
+    font-family: 'SF Compact Display Thin';
+    font-size: 17px;
+    font-weight: bolder;
+}
+
+.metrics {
+    padding: 20px 30px;
+    display: flex;
+    gap: 60px;
+    background: #000000;
+    border-radius: 20px;
+    color: #FFE142;    
+}
+
+.metrics div p {
+    font-family: 'SF Compact Display Medium';
+    font-size: 25px;
+    font-weight: bolder;
+    text-align: center;
+    line-height: 0.8;
+}
+
+.metrics div h4 {
+    font-family: 'SF Compact Display Thin';
+    font-size: 15px;
+    text-align: center;
+}
+
+.wind, .humidity, .visibility {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.wind div {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+    overflow: hidden;
+}
+
+.metrics svg {
+    height: 50px;
+    width: 50px;
+    fill: #FFE142;
+    stroke: #FFE142;
+}
+
+.wind svg {
+    flex-shrink: 0;
+    animation: left 2s linear infinite;
+}
+
+.humidity svg {
+    animation: shrink 2s linear infinite;
+}
+
+.visibility svg {
+    animation: rotate 10s linear infinite;
+}
+
+
+
+@keyframes left {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(-50px);
+    }
+}
+
+@keyframes shrink {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1.1, 0.9);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotateX(0deg);
+    }
+    5% {
+        transform: rotateX(360deg);
+    }
+    100% {
+        transform: rotateX(360deg);
+    }
+}
+
