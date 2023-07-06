@@ -34,13 +34,24 @@ html {
 body {
     width: 100%;
     height: 100%;
-    padding: 40px;
-    background-color: #FFE142;
+}
+
+#app {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.swiper {
+    height: 100%!important;
+}
+
+.swiper-slide {
+    padding: 40px!important;
 }
 
 .day {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -159,8 +170,6 @@ body {
 .metrics svg {
     height: 50px;
     width: 50px;
-    fill: #FFE142;
-    stroke: #FFE142;
 }
 
 .wind svg {

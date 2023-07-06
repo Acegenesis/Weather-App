@@ -6,9 +6,9 @@ A little website to show the weather
 
 - [X] Vue template clean
 - [X] Global layout and css
-- [ ] A slider for the multiple city
-- [ ] Connection to API openweather
-- [ ] Get data and show it
+- [X] A slider for the multiple city
+- [X] Connection to API openweather
+- [X] Get data and show it ( mainly ) [ ] desciption of the day
 - [ ] Animations CSS
 - [ ] Sidebar with city fastaccess
 - [ ] Add city fonction in sidebar
@@ -19,6 +19,14 @@ A little website to show the weather
 
 ```sh
 npm install
+```
+
+## Make a conf.json file at the root of the folder
+
+```sh
+{
+    "apikey" : "ofdvkwdp,sùsm,qùfddsfô"
+}
 ```
 
 ### Compile and Hot-Reload for Development
