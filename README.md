@@ -1,6 +1,13 @@
 # weather-app
 
-A little website to show the weather
+A little website to show the weather of differents city in the world
+
+![Website]('/src/assets/imgs/presentation.jpg')
+
+#### USING LIBS AND FRAMEWORK
+- VueJS 3
+- SwiperJS
+- Axios
 
 ## TO DO
 
@@ -8,12 +15,14 @@ A little website to show the weather
 - [X] Global layout and css
 - [X] A slider for the multiple city
 - [X] Connection to API openweather
-- [X] Get data and show it ( mainly ) [ ] desciption of the day
+- [X] Get data and show it ( mainly )
+- [ ] Connection to traduction API
+- [ ] desciption of the day
 - [ ] Animations CSS
 - [ ] Sidebar with city fastaccess
-- [ ] Add city fonction in sidebar
+- [ ] Add city fonctions in sidebar
 - [ ] DB for stats 
-- [ ] Optimisations to algorithms
+- [ ] Optimisations of algorithms
 
 ## Project Setup
 
