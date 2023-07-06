@@ -42,7 +42,7 @@ export default {
             const date = new Date(dt * 1000);
             const tempsEnAnglais = weather[0].description;
             const temps = mappingTemps[tempsEnAnglais.toLowerCase()] || tempsEnAnglais;
-            const temperature = Math.round(main.temp - 273.15);
+            const temperature = Math.round(main.temp - 273.15).toString();
             const vent = `${(Math.round(wind.speed * 3.6))} km/h`;
             const visibilite = visibility >= 1000 ? `${(Math.round(visibility / 1000))} km` : `${Math.round(visibility)} m`;
             const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
