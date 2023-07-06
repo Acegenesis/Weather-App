@@ -2,7 +2,7 @@
 
 A little website to show the weather of differents city in the world
 
-![Website]('/src/assets/imgs/presentation.jpg')
+![Website](src/assets/imgs/presentation.jpg)
 
 #### USING LIBS AND FRAMEWORK
 - VueJS 3
