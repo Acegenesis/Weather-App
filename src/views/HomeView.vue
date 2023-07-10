@@ -20,8 +20,8 @@ export default {
   methods: {
     async obtenirInfosMeteo() {
         const infosVilles = [];
-        const villes = ['Paris', 'London', 'New York', 'Tokyo', 'Sydney'];
-        const colors = ['#FFE142', '#FFB142', '#FF7D42', '#FF4242', '#FF42B1'];
+        const villes = ['Paris', 'London', 'New York', 'Tokyo', 'Sydney', 'Strasbourg'];
+        const colors = ['#FFE142', '#FFB142', '#FF7D42', '#FF4242', '#FF42B1', '#FF42F1'];
         const apiKey = config.apikey;
         const mappingTemps = {
             'clear sky': 'Ciel dégagé',
@@ -77,11 +77,11 @@ export default {
 </script>
 
 <template>
-  <swiper :grabCursor="true" class="mySwiper">        
-    <swiper-slide v-for="(infoVille, index) in infosVilles" :key="index" class="sliderItem" :style="{ background: infoVille.color }">
-      <Day :location="infoVille.ville" :day="infoVille.jour" :state="infoVille.temps" :color="infoVille.color" />
-      <Temperature :temperature="infoVille.temperature" />
-      <MoreInfo :wind="infoVille.vent" :humidity="infoVille.humidite" :visibility="infoVille.visibilite" :color="infoVille.color" />
-    </swiper-slide>
-  </swiper>
+    <swiper :loop='true' :grabCursor="true" class="mySwiper">        
+      <swiper-slide v-for="(infoVille, index) in infosVilles" :key="index" class="sliderItem" :style="{ background: infoVille.color }">
+        <Day :location="infoVille.ville" :day="infoVille.jour" :state="infoVille.temps" :color="infoVille.color" />
+        <Temperature :temperature="infoVille.temperature" />
+        <MoreInfo :wind="infoVille.vent" :humidity="infoVille.humidite" :visibility="infoVille.visibilite" :color="infoVille.color" />
+      </swiper-slide>
+    </swiper>
 </template>
