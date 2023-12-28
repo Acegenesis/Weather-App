@@ -34,6 +34,7 @@ export default {
             'thunderstorm': 'Orage',
             'snow': 'Neige',
             'mist': 'Brume',
+            'light rain': 'Pluie légère',
         };
         for (const ville of villes) {
             try {

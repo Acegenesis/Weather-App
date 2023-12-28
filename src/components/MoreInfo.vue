@@ -1,5 +1,4 @@
 <script setup>
-import Sumary from './Sumary.vue'
 import Metrics from './Metrics.vue'
 import { defineProps } from 'vue'
 const props = defineProps({
@@ -12,7 +11,6 @@ const props = defineProps({
 
 <template>
     <div class="moreInfo">
-        <Sumary />
         <Metrics :wind="wind" :humidity="humidity" :visibility="visibility" :color="color"/>
     </div>
 </template>
