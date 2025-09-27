@@ -7,23 +7,22 @@
 @font-face {
     font-family: 'SF Compact Display Thin';
     font-style: normal;
-    font-weight: normal;
-    src: local('SF Compact Display Thin'), url('../fonts/sf-thin.woff') format('woff');
+    font-weight: 300;
+    src: local('SF Compact Display Thin'), url('~/assets/fonts/sf-thin.woff') format('woff');
 }
-
 
 @font-face {
     font-family: 'SF Compact Display Medium';
     font-style: normal;
-    font-weight: normal;
-    src: local('SF Compact Display Medium'), url('../fonts/sf-medium.woff') format('woff');
+    font-weight: 500;
+    src: local('SF Compact Display Medium'), url('~/assets/fonts/sf-medium.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Ledger Regular';
     font-style: normal;
     font-weight: normal;
-    src: local('Ledger Regular'), url('../fonts/Ledger-Regular.ttf') format('openType');
+    src: local('Ledger Regular'), url('~/assets/fonts/Ledger-Regular.ttf') format('truetype');
 }
 
 html {
@@ -36,7 +35,7 @@ body {
     height: 100%;
 }
 
-#app {
+#__nuxt {
     display: flex;
     width: 100%;
     height: 100%;
@@ -44,10 +43,6 @@ body {
 
 .swiper {
     height: 100%!important;
-}
-
-.swiper-slide {
-    padding: 40px!important;
 }
 
 .day {
@@ -185,8 +180,6 @@ body {
     animation: rotate 10s linear infinite;
 }
 
-
-
 @keyframes left {
     0% {
         transform: translateX(0px);
@@ -220,3 +213,17 @@ body {
     }
 }
 
+/* Palette et polices globales pour le design desktop */
+:root {
+  --yellow: #FFE142;
+  --blue: #42C6FF;
+  --pink: #FF64D4;
+  --black: #000000;
+  --white: #fff;
+}
+
+body {
+  font-family: 'SF Compact Display Medium', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #000;
+  color: #000;
+}

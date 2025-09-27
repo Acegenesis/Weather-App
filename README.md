@@ -1,47 +1,50 @@
-# weather-app
-A little website to show the weather of differents city in the world !
-![Website](src/assets/imgs/presentation.jpg)
-Design by [Desire Creative Agency for Desire Creative](https://dribbble.com/shots/20675054-Mobile-Weather-app)
+# Weather App - Migration vers Nuxt 3
 
-## USING LIBS AND FRAMEWORK
-- VueJS 3
-- SwiperJS
-- Axios
+## Configuration
 
-## TO DO
-- [X] Vue template cleaning
-- [X] Global layout and css
-- [X] Slider for the multiple city
-- [X] Connection to the API openweather
-- [X] Get data and show it
-- [ ] Connection to traduction API
-- [ ] desciption of the day
-- [ ] Animations CSS
-- [ ] Sidebar with city fast access
-- [ ] Add city fonctions in sidebar
-- [ ] DB for stats (maybe) 
-- [ ] Optimisations of algorithms (if needed)
+### Variables d'environnement
 
-## Project Setup
-```sh
+Créez un fichier `.env` à la racine du projet avec votre clé API OpenWeatherMap :
+
+```env
+NUXT_PUBLIC_API_KEY=votre_cle_api_openweathermap
+```
+
+Vous pouvez obtenir une clé API gratuite sur [OpenWeatherMap](https://openweathermap.org/api).
+
+### Installation
+
+```bash
+# Installer les dépendances
 npm install
-```
 
-## Make a ```conf.json``` file at the root of the folder
-Exemple:
-```json
-{
-    "apikey" : "ofdvkwdp,sùsm,qùfddsfô"
-}
-```
-
-## Run with hot reload for Development
-```sh
+# Lancer en mode développement
 npm run dev
-```
 
-## Compile and Minify for Production
-```sh
+# Construire pour la production
 npm run build
+
+# Prévisualiser la build de production
+npm run preview
 ```
 
+## Changements apportés lors de la migration
+
+### Structure des fichiers
+- `src/` → Structure Nuxt 3 standard
+- `src/views/HomeView.vue` → `pages/index.vue`
+- `src/components/` → `components/`
+- `src/assets/` → `assets/`
+
+### Modifications du code
+- Utilisation de `$fetch` au lieu d'axios pour les appels API
+- Utilisation des composables Nuxt (`useRuntimeConfig`, `onMounted`, `ref`)
+- Configuration via `nuxt.config.ts`
+- Variables d'environnement via `runtimeConfig`
+
+### Fonctionnalités
+- Auto-import des composants
+- Optimisation automatique des images
+- Support TypeScript
+- Hot Module Replacement (HMR)
+- Génération statique possible avec `npm run generate`
