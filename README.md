@@ -1,50 +1,75 @@
-# Weather App - Migration vers Nuxt 3
+# Nuxt Minimal Starter
 
-## Configuration
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-### Variables d'environnement
+## Setup
 
-Créez un fichier `.env` à la racine du projet avec votre clé API OpenWeatherMap :
-
-```env
-NUXT_PUBLIC_API_KEY=votre_cle_api_openweathermap
-```
-
-Vous pouvez obtenir une clé API gratuite sur [OpenWeatherMap](https://openweathermap.org/api).
-
-### Installation
+Make sure to install dependencies:
 
 ```bash
-# Installer les dépendances
+# npm
 npm install
 
-# Lancer en mode développement
-npm run dev
+# pnpm
+pnpm install
 
-# Construire pour la production
-npm run build
+# yarn
+yarn install
 
-# Prévisualiser la build de production
-npm run preview
+# bun
+bun install
 ```
 
-## Changements apportés lors de la migration
+## Development Server
 
-### Structure des fichiers
-- `src/` → Structure Nuxt 3 standard
-- `src/views/HomeView.vue` → `pages/index.vue`
-- `src/components/` → `components/`
-- `src/assets/` → `assets/`
+Start the development server on `http://localhost:3000`:
 
-### Modifications du code
-- Utilisation de `$fetch` au lieu d'axios pour les appels API
-- Utilisation des composables Nuxt (`useRuntimeConfig`, `onMounted`, `ref`)
-- Configuration via `nuxt.config.ts`
-- Variables d'environnement via `runtimeConfig`
+```bash
+# npm
+npm run dev
 
-### Fonctionnalités
-- Auto-import des composants
-- Optimisation automatique des images
-- Support TypeScript
-- Hot Module Replacement (HMR)
-- Génération statique possible avec `npm run generate`
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

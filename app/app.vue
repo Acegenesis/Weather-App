@@ -15,5 +15,5 @@ useHead({
 </script>
 
 <style>
-/* Les styles globaux sont importés via nuxt.config.ts */
+@import '~/assets/css/main.css';
 </style>

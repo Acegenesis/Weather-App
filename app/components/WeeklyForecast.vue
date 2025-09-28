@@ -1,4 +1,6 @@
 <script setup>
+const { t } = useI18n()
+
 const props = defineProps({
   temperature: String
 })
@@ -17,7 +19,7 @@ const forecast = computed(() => generateForecast())
 
 <template>
   <div class="weekly-forecast-component">
-    <div class="forecast-title">Weekly forecast</div>
+    <div class="forecast-title">{{ $t('weather.weekly_forecast') }}</div>
     <div class="forecast-row">
       <div 
         v-for="(day, index) in forecast" 

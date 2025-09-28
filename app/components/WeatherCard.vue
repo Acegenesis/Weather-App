@@ -2,6 +2,9 @@
 const props = defineProps({
   ville: Object
 })
+
+// Debug pour voir les données reçues
+console.log('WeatherCard reçoit:', props.ville)
 </script>
 
 <template>

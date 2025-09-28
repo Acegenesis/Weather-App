@@ -1,4 +1,6 @@
 <script setup>
+const { t } = useI18n()
+
 const props = defineProps({
   location: String,
   day: String,

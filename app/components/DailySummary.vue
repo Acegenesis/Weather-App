@@ -1,4 +1,6 @@
 <script setup>
+const { t } = useI18n()
+
 const props = defineProps({
   summary: String,
   wind: String,
@@ -10,7 +12,7 @@ const props = defineProps({
 
 <template>
   <div class="daily-summary-component">
-    <div class="summary-title">Daily Summary</div>
+    <div class="summary-title">{{ $t('weather.daily_summary') }}</div>
     <div class="summary-text" v-if="summary">{{ summary }}</div>
 
     <div class="metrics-row-component">
@@ -29,7 +31,7 @@ const props = defineProps({
         <div class="metric-value-component" :style="{ color: color }">
           {{ wind }}
         </div>
-        <div class="metric-label-component" :style="{ color: color }">Wind</div>
+        <div class="metric-label-component" :style="{ color: color }">{{ $t('weather.wind') }}</div>
       </div>
 
       <div class="metric-block">
@@ -49,7 +51,7 @@ const props = defineProps({
           {{ humidity }}
         </div>
         <div class="metric-label-component" :style="{ color: color }">
-          Humidity
+          {{ $t('weather.humidity') }}
         </div>
       </div>
 
@@ -70,7 +72,7 @@ const props = defineProps({
           {{ visibility }}
         </div>
         <div class="metric-label-component" :style="{ color: color }">
-          Visibility
+          {{ $t('weather.visibility') }}
         </div>
       </div>
     </div>

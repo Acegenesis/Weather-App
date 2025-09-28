@@ -1,0 +1,73 @@
+{
+  "app": {
+    "title": "Aplicación del Tiempo",
+    "description": "Aplicación meteorológica moderna con Vue.js y Nuxt 3",
+    "loading": "Cargando datos meteorológicos...",
+    "error": "Error",
+    "retry": "Reintentar",
+    "no_data": "No hay datos disponibles",
+    "load_data": "Cargar datos",
+    "prev": "Anterior",
+    "next": "Siguiente"
+  },
+  "weather": {
+    "temperature": "Temperatura",
+    "wind": "Viento",
+    "humidity": "Humedad",
+    "visibility": "Visibilidad",
+    "daily_summary": "Resumen Diario",
+    "weekly_forecast": "Pronóstico Semanal",
+    "weather_condition": "Condición Meteorológica",
+    "conditions": {
+      "clear_sky": "Soleado",
+      "few_clouds": "Pocas nubes",
+      "scattered_clouds": "Nubes dispersas",
+      "overcast_clouds": "Nublado",
+      "broken_clouds": "Nublado",
+      "shower_rain": "Chubascos",
+      "rain": "Lluvioso",
+      "thunderstorm": "Tormenta",
+      "snow": "Nieve",
+      "mist": "Brumoso",
+      "light_rain": "Lluvia ligera",
+      "cloudy": "Nublado",
+      "sunny": "Soleado"
+    },
+    "units": {
+      "celsius": "°C",
+      "kmh": "km/h",
+      "percent": "%",
+      "km": "km"
+    }
+  },
+  "cities": {
+    "paris": "París",
+    "new_york": "Nueva York",
+    "sydney": "Sídney"
+  },
+  "days": {
+    "today": "Hoy",
+    "tomorrow": "Mañana",
+    "monday": "Lunes",
+    "tuesday": "Martes",
+    "wednesday": "Miércoles",
+    "thursday": "Jueves",
+    "friday": "Viernes",
+    "saturday": "Sábado",
+    "sunday": "Domingo"
+  },
+  "months": {
+    "january": "Enero",
+    "february": "Febrero",
+    "march": "Marzo",
+    "april": "Abril",
+    "may": "Mayo",
+    "june": "Junio",
+    "july": "Julio",
+    "august": "Agosto",
+    "september": "Septiembre",
+    "october": "Octubre",
+    "november": "Noviembre",
+    "december": "Diciembre"
+  }
+}

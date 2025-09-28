@@ -1,0 +1,73 @@
+{
+  "app": {
+    "title": "Application Météo",
+    "description": "Application météo moderne avec Vue.js et Nuxt 3",
+    "loading": "Chargement des données météo...",
+    "error": "Erreur",
+    "retry": "Réessayer",
+    "no_data": "Aucune donnée disponible",
+    "load_data": "Charger les données",
+    "prev": "Précédent",
+    "next": "Suivant"
+  },
+  "weather": {
+    "temperature": "Température",
+    "wind": "Vent",
+    "humidity": "Humidité",
+    "visibility": "Visibilité",
+    "daily_summary": "Résumé quotidien",
+    "weekly_forecast": "Prévisions hebdomadaires",
+    "weather_condition": "Conditions météorologiques",
+    "conditions": {
+      "clear_sky": "Ensoleillé",
+      "few_clouds": "Quelques nuages",
+      "scattered_clouds": "Nuages épars",
+      "overcast_clouds": "Couvert",
+      "broken_clouds": "Nuageux",
+      "shower_rain": "Averses",
+      "rain": "Pluvieux",
+      "thunderstorm": "Orageux",
+      "snow": "Neigeux",
+      "mist": "Brumeux",
+      "light_rain": "Pluie légère",
+      "cloudy": "Nuageux",
+      "sunny": "Ensoleillé"
+    },
+    "units": {
+      "celsius": "°C",
+      "kmh": "km/h",
+      "percent": "%",
+      "km": "km"
+    }
+  },
+  "cities": {
+    "paris": "Paris",
+    "new_york": "New York",
+    "sydney": "Sydney"
+  },
+  "days": {
+    "today": "Aujourd'hui",
+    "tomorrow": "Demain",
+    "monday": "Lundi",
+    "tuesday": "Mardi",
+    "wednesday": "Mercredi",
+    "thursday": "Jeudi",
+    "friday": "Vendredi",
+    "saturday": "Samedi",
+    "sunday": "Dimanche"
+  },
+  "months": {
+    "january": "Janvier",
+    "february": "Février",
+    "march": "Mars",
+    "april": "Avril",
+    "may": "Mai",
+    "june": "Juin",
+    "july": "Juillet",
+    "august": "Août",
+    "september": "Septembre",
+    "october": "Octobre",
+    "november": "Novembre",
+    "december": "Décembre"
+  }
+}

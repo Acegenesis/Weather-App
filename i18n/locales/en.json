@@ -1,0 +1,73 @@
+{
+  "app": {
+    "title": "Weather App",
+    "description": "Modern weather app with Vue.js and Nuxt 3",
+    "loading": "Loading weather data...",
+    "error": "Error",
+    "retry": "Retry",
+    "no_data": "No data available",
+    "load_data": "Load data",
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "weather": {
+    "temperature": "Temperature",
+    "wind": "Wind",
+    "humidity": "Humidity",
+    "visibility": "Visibility",
+    "daily_summary": "Daily Summary",
+    "weekly_forecast": "Weekly Forecast",
+    "weather_condition": "Weather Condition",
+    "conditions": {
+      "clear_sky": "Sunny",
+      "few_clouds": "Few clouds",
+      "scattered_clouds": "Scattered clouds",
+      "overcast_clouds": "Overcast",
+      "broken_clouds": "Cloudy",
+      "shower_rain": "Showers",
+      "rain": "Rainy",
+      "thunderstorm": "Thunderstorm",
+      "snow": "Snow",
+      "mist": "Misty",
+      "light_rain": "Light rain",
+      "cloudy": "Cloudy",
+      "sunny": "Sunny"
+    },
+    "units": {
+      "celsius": "°C",
+      "kmh": "km/h",
+      "percent": "%",
+      "km": "km"
+    }
+  },
+  "cities": {
+    "paris": "Paris",
+    "new_york": "New York",
+    "sydney": "Sydney"
+  },
+  "days": {
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  }
+}
