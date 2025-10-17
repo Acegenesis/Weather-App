@@ -33,7 +33,6 @@
 </template>
 
 <script setup>
-// Props
 const props = defineProps({
   backgroundColor: {
     type: String,
@@ -41,20 +40,16 @@ const props = defineProps({
   }
 })
 
-// i18n
 const { locale, locales } = useI18n()
 const localePath = useLocalePath()
 
-// État local
 const isOpen = ref(false)
 
-// Computed
 const availableLocales = computed(() => locales.value || [])
 const currentLocale = computed(() => 
   availableLocales.value.find(l => l.code === locale.value) || availableLocales.value[0]
 )
 
-// Méthodes
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value
 }
@@ -69,7 +64,6 @@ const changeLanguage = async (newLocale) => {
   }
 }
 
-// Fermer le dropdown quand on clique en dehors
 onMounted(() => {
   const handleClickOutside = (event) => {
     const target = event.target

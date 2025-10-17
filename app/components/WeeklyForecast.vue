@@ -1,11 +1,14 @@
 <script setup>
+import useGlassmorphism from '@/composables/useGlassmorphism'
+
 const { t } = useI18n()
+const { getGlassStyle } = useGlassmorphism()
 
 const props = defineProps({
-  temperature: String
+  temperature: String,
+  color: String
 })
 
-// Générer des prévisions basées sur la température actuelle
 const generateForecast = () => {
   const baseTemp = parseInt(props.temperature)
   return Array.from({ length: 4 }, (_, index) => ({
@@ -15,16 +18,20 @@ const generateForecast = () => {
 }
 
 const forecast = computed(() => generateForecast())
+
+const containerGlassStyles = computed(() => getGlassStyle(props.color, 'container'))
+const cardGlassStyles = computed(() => getGlassStyle(props.color, 'card'))
 </script>
 
 <template>
   <div class="weekly-forecast-component">
     <div class="forecast-title">{{ $t('weather.weekly_forecast') }}</div>
-    <div class="forecast-row">
+    <div class="forecast-row" :style="containerGlassStyles">
       <div 
         v-for="(day, index) in forecast" 
         :key="index"
         class="forecast-day-component"
+        :style="cardGlassStyles"
       >
         <div class="forecast-temp-component">{{ day.temp }}°</div>
         <div class="forecast-dot">●</div>
@@ -57,13 +64,16 @@ const forecast = computed(() => generateForecast())
   gap: 8px;
   width: 100%;
   justify-content: center;
-  background: rgba(0,0,0,0.05);
   border-radius: 20px;
   padding: 12px 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.forecast-row:hover {
+  transform: translateY(-1px);
 }
 
 .forecast-day-component {
-  background: rgba(0,0,0,0.08);
   border-radius: 14px;
   padding: 12px 8px;
   flex: 1;
@@ -71,36 +81,37 @@ const forecast = computed(() => generateForecast())
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .forecast-day-component:hover {
-  background: rgba(0,0,0,0.12);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .forecast-temp-component {
   font-family: 'Ledger Regular', serif;
   font-size: 1.3rem;
-  color: #000;
+  color: rgba(0, 0, 0, 0.95);
   font-weight: 700;
   margin-bottom: 4px;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
 .forecast-dot {
   font-size: 1rem;
-  color: #000;
-  opacity: 0.6;
+  color: rgba(0, 0, 0, 0.75);
+  opacity: 0.7;
   margin-bottom: 4px;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 .forecast-date-component {
   font-family: 'SF Compact Display Thin', sans-serif;
   font-size: 0.85rem;
-  color: #000;
-  opacity: 0.8;
+  color: rgba(0, 0, 0, 0.8);
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 @media (max-width: 768px) {

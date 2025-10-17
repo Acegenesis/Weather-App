@@ -1,52 +1,48 @@
 <script setup>
 const props = defineProps({
-  ville: Object
-})
-
-// Debug pour voir les données reçues
-console.log('WeatherCard reçoit:', props.ville)
+  ville: Object,
+});
 </script>
 
 <template>
-  <div class="weather-card-fullscreen" :style="{ backgroundColor: ville.color }">
+  <div
+    class="weather-card-fullscreen"
+    :style="{ backgroundColor: ville.color }"
+  >
     <div class="weather-card-content-fullscreen">
-      
-      <!-- Grille à deux colonnes -->
       <div class="weather-grid">
-        
-        <!-- Colonne gauche : Ville + Température -->
         <div class="left-column">
           <div class="header-section">
-            <Day 
+            <Day
               :location="ville.ville"
               :day="ville.jour"
               :state="ville.temps"
               :color="ville.color"
             />
           </div>
-          
+
           <div class="temperature-section">
             <Temperature :temperature="ville.temperature" />
           </div>
         </div>
-        
-        <!-- Colonne droite : Summary + Metrics fusionnés + Forecast -->
         <div class="right-column">
           <div class="summary-section">
-            <DailySummary 
-              :summary="ville.summary" 
+            <DailySummary
+              :summary="ville.summary"
               :wind="ville.vent"
               :humidity="ville.humidite"
               :visibility="ville.visibilite"
               :color="ville.color"
             />
           </div>
-          
+
           <div class="forecast-section">
-            <WeeklyForecast :temperature="ville.temperature" />
+            <WeeklyForecast
+              :temperature="ville.temperature"
+              :color="ville.color"
+            />
           </div>
         </div>
-        
       </div>
     </div>
   </div>
@@ -83,7 +79,6 @@ console.log('WeatherCard reçoit:', props.ville)
   align-items: center;
 }
 
-/* Colonne gauche */
 .left-column {
   display: flex;
   flex-direction: column;
@@ -106,7 +101,6 @@ console.log('WeatherCard reçoit:', props.ville)
   justify-content: center;
 }
 
-/* Colonne droite */
 .right-column {
   display: flex;
   flex-direction: column;
@@ -129,20 +123,19 @@ console.log('WeatherCard reçoit:', props.ville)
   justify-content: center;
 }
 
-/* Responsive */
 @media (max-width: 1200px) {
   .weather-card-fullscreen {
     padding: 30px 60px;
   }
-  
+
   .weather-grid {
     gap: 40px;
   }
-  
+
   .left-column {
     gap: 30px;
   }
-  
+
   .right-column {
     gap: 35px;
   }
@@ -153,12 +146,13 @@ console.log('WeatherCard reçoit:', props.ville)
     grid-template-columns: 1fr;
     gap: 30px;
   }
-  
+
   .weather-card-fullscreen {
     padding: 25px 40px;
   }
-  
-  .left-column, .right-column {
+
+  .left-column,
+  .right-column {
     gap: 30px;
   }
 }
@@ -167,8 +161,9 @@ console.log('WeatherCard reçoit:', props.ville)
   .weather-card-fullscreen {
     padding: 20px 30px;
   }
-  
-  .left-column, .right-column {
+
+  .left-column,
+  .right-column {
     gap: 15px;
   }
 }

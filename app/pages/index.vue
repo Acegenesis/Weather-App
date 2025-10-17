@@ -1,122 +1,135 @@
 <script setup>
-// i18n
+import useActiveColor from '@/composables/useActiveColor'
+import useGlassmorphism from '@/composables/useGlassmorphism'
+
 const { t, locale } = useI18n()
 
-// Configuration de la page
 definePageMeta({
-  title: 'Météo - Accueil'
+  title: 'Weather - Home'
 })
 
-// Utilisation des composables Nuxt
 const config = useRuntimeConfig()
+const { currentColor, setActiveSlide, setWeatherData } = useActiveColor()
+const { applyPaginationStyles } = useGlassmorphism()
 
-// État réactif
-const infosVilles = ref([])
 const isLoading = ref(true)
 const error = ref(null)
-
-// Nuxt Swiper composable
 const containerRef = ref(null)
 const swiper = useSwiper(containerRef)
 
-// Initialisation après chargement des données
-watch(infosVilles, async (newVal) => {
+watch(() => useActiveColor().weatherData.value, async (newVal) => {
   if (newVal.length > 0 && containerRef.value) {
     await nextTick()
-    console.log('Swiper instance after data load:', swiper.instance)
   }
 }, { immediate: true })
 
-// Fonction helper pour traduire les conditions météo
+watch(currentColor, (newColor) => {
+  applyPaginationStyles(newColor)
+}, { immediate: true })
+
 const getWeatherCondition = (condition) => {
   const conditionKey = condition.toLowerCase().replace(/\s+/g, '_')
   const translationKey = `weather.conditions.${conditionKey}`
   const translation = t(translationKey)
-  // Si la traduction n'existe pas, on retourne la condition originale
   return translation !== translationKey ? translation : condition
 }
 
-// Fonction pour obtenir les informations météo
+const onSlideChange = (event) => {
+  if (event.detail && typeof event.detail[0]?.realIndex === 'number') {
+    setActiveSlide(event.detail[0].realIndex)
+  }
+}
 
-const obtenirInfosMeteo = async () => {
+const fetchWeatherData = async () => {
   try {
     isLoading.value = true
     error.value = null
-    // Seulement les 3 villes du mockup
-    const villes = ['Paris', 'New York', 'Sydney']
+    const cities = ['Paris', 'New York', 'Sydney']
     const colors = ['#FFE142', '#42C6FF', '#FF64D4']
     const apiKey = config.public.apiKey
-    const infosVillesTemp = []
-    for (const [index, ville] of villes.entries()) {
+    const citiesData = []
+    
+    for (const [index, city] of cities.entries()) {
       try {
-        const data = await $fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ville}&appid=${apiKey}`)
-        const { dt, weather, main, wind, visibility } = data
-        const date = new Date(dt * 1000)
-        const tempsEnAnglais = weather[0].description // Utilisons la description détaillée
-        const temps = getWeatherCondition(tempsEnAnglais)
+        const data = await $fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
+        const { dt, weather, main, wind, visibility, timezone } = data
+        
+        const date = new Date((dt + timezone) * 1000)
+        const weatherDescriptionEn = weather[0].description
+        const translatedWeather = getWeatherCondition(weatherDescriptionEn)
         const temperature = Math.round(main.temp - 273.15).toString()
-        const vent = `${Math.round(wind.speed * 3.6)}km/h`
-        const visibilite = visibility >= 1000 ? `${Math.round(visibility / 1000)}km` : `${Math.round(visibility)}m`
-        const options = { weekday: 'long', day: 'numeric', month: 'long' }
-        const dateLocale = date.toLocaleDateString('en-US', options)
-        const humidite = `${main.humidity}%`
-        const infoVille = {
-          ville: t(`cities.${ville.toLowerCase().replace(' ', '_')}`),
-          jour: dateLocale,
-          temps,
+        const windSpeed = `${Math.round(wind.speed * 3.6)}km/h`
+        const visibilityFormatted = visibility >= 1000 ? `${Math.round(visibility / 1000)}km` : `${Math.round(visibility)}m`
+        
+        const options = { 
+          weekday: 'long', 
+          day: 'numeric', 
+          month: 'long'
+        }
+        const localDate = date.toLocaleDateString('en-US', options)
+        const humidity = `${main.humidity}%`
+        
+        const cityInfo = {
+          ville: t(`cities.${city.toLowerCase().replace(' ', '_')}`),
+          jour: localDate,
+          temps: translatedWeather,
           temperature: temperature,
-          vent: vent,
-          humidite: humidite,
-          visibilite,
+          vent: windSpeed,
+          humidite: humidity,
+          visibilite: visibilityFormatted,
           color: colors[index],
         }
-        infosVillesTemp.push(infoVille)
+        citiesData.push(cityInfo)
       } catch (err) {
-        console.error(`Erreur pour ${ville}:`, err)
+        console.error(`Error fetching data for ${city}:`, err)
       }
     }
-    infosVilles.value = infosVillesTemp
+    setWeatherData(citiesData)
   } catch (err) {
-    error.value = 'Erreur lors du chargement des données météo'
+    error.value = 'Error loading weather data'
   } finally {
     isLoading.value = false
   }
 }
 
-// Chargement des données au montage du composant
 onMounted(async () => {
-  console.log('Component mounted, loading data...')
-  await obtenirInfosMeteo()
-  console.log('Data loaded:', infosVilles.value)
+  await fetchWeatherData()
+  
+  applyPaginationStyles(currentColor.value)
+  
+  await nextTick()
+  if (containerRef.value && typeof window !== 'undefined') {
+    const swiperEl = containerRef.value
+    
+    setTimeout(() => {
+      if (swiperEl.swiper) {
+        swiperEl.swiper.on('slideChange', () => {
+          const realIndex = swiperEl.swiper.realIndex
+          setActiveSlide(realIndex)
+        })
+      }
+    }, 100)
+  }
 })
 
-// Watch pour debug
-watch(infosVilles, (newVal) => {
-  console.log('infosVilles changed:', newVal)
-}, { deep: true })
-
-watch(isLoading, (newVal) => {
-  console.log('isLoading changed:', newVal)
-})
+const { weatherData, activeSlideIndex } = useActiveColor()
 </script>
 
 <template>
 <div class="weather-app-fullscreen">
-  <!-- Sélecteur de langue -->
   <div class="language-selector-container">
-    <LanguageSelector :backgroundColor="'rgba(255, 255, 255, 0.1)'" />
+    <LanguageSelector :currentColor="currentColor" />
   </div>
   
   <div v-if="isLoading" class="loading">
-    <h2>{{ $t('app.loading') || 'Chargement des données météo...' }}</h2>
+    <h2>{{ $t('app.loading') || 'Loading weather data...' }}</h2>
   </div>
   <div v-else-if="error" class="error">
-    <h2>{{ $t('app.error') || 'Erreur' }}</h2>
+    <h2>{{ $t('app.error') || 'Error' }}</h2>
     <p>{{ error }}</p>
-    <button @click="obtenirInfosMeteo">{{ $t('app.retry') || 'Réessayer' }}</button>
+    <button @click="fetchWeatherData">{{ $t('app.retry') || 'Retry' }}</button>
   </div>
-  <div v-else-if="infosVilles.length > 0" class="weather-swiper-container">
-    <!-- Nuxt Swiper avec web components -->
+  <div v-else-if="weatherData.length > 0" class="weather-swiper-container">
     <ClientOnly>
       <swiper-container 
         ref="containerRef"
@@ -125,9 +138,11 @@ watch(isLoading, (newVal) => {
         grab-cursor="true"
         loop="true"
         pagination-clickable="true"
+        @swiperslidechange="onSlideChange"
+        @slidechange="onSlideChange"
       >
         <swiper-slide 
-          v-for="(ville, index) in infosVilles" 
+          v-for="(ville, index) in weatherData" 
           :key="index"
           class="weather-slide-fullscreen"
         >
@@ -137,14 +152,13 @@ watch(isLoading, (newVal) => {
     </ClientOnly>
   </div>
   <div v-else class="no-data">
-    <h2>{{ $t('app.no_data') || 'Aucune donnée disponible' }}</h2>
-    <button @click="obtenirInfosMeteo">{{ $t('app.load_data') || 'Charger les données' }}</button>
+    <h2>{{ $t('app.no_data') || 'No data available' }}</h2>
+    <button @click="fetchWeatherData">{{ $t('app.load_data') || 'Load data' }}</button>
   </div>
 </div>
 </template>
 
 <style scoped>
-/* --- Fullscreen Weather App avec Swiper et Composants --- */
 .weather-app-fullscreen {
   width: 100vw;
   height: 100vh;
@@ -159,7 +173,7 @@ watch(isLoading, (newVal) => {
   position: relative;
 }
 
-/* Sélecteur de langue */
+/* Language selector */
 .language-selector-container {
   position: absolute;
   top: 30px;
@@ -195,7 +209,7 @@ swiper-slide {
   justify-content: center;
 }
 
-/* Navigation personnalisée */
+/* Custom navigation */
 .swiper-navigation {
   position: fixed;
   bottom: 30px;
@@ -231,7 +245,6 @@ swiper-slide {
   transform: none;
 }
 
-/* Styles Swiper pagination adaptés à la DA */
 swiper-container::part(pagination) {
   position: absolute;
   width: auto !important;
@@ -245,37 +258,37 @@ swiper-container::part(pagination) {
   align-items: center;
   gap: 8px;
   padding: 15px 25px;
-  background: rgb(0, 0, 0) !important; /* Bande sombre marron comme dans l'image */
-  backdrop-filter: blur(10px);
-  border: none;
-  box-shadow: none;
+  background: var(--pagination-bg, rgba(255, 255, 255, 0.15)) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--pagination-border, rgba(255, 255, 255, 0.25)) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.3) !important;
 }
 
 swiper-container::part(bullet) {
-  background: rgb(255, 255, 255) !important;
+  background: var(--bullet-bg, rgba(0, 0, 0, 0.6)) !important;
   width: 12px !important;
   height: 12px !important;
   border-radius: 50% !important;
   margin: 0 4px !important;
   transition: all 0.3s ease !important;
   cursor: pointer !important;
-  border: none !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
   position: relative !important;
   overflow: hidden !important;
 }
 
 swiper-container::part(bullet-active) {
-  background: rgba(255, 255, 255, 0.9) !important;
+  background: var(--bullet-active-bg, rgba(0, 0, 0, 0.9)) !important;
   transform: scale(1.2) !important;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) !important;
 }
 
 swiper-container::part(bullet):hover {
-  background: rgba(255, 255, 255, 0.6) !important;
+  background: var(--bullet-hover-bg, rgba(0, 0, 0, 0.75)) !important;
   transform: scale(1.05) !important;
 }
 
-/* Styles généraux du swiper */
 swiper-container::part(container) {
   overflow: hidden;
   position: relative;
@@ -286,7 +299,6 @@ swiper-container::part(wrapper) {
   display: flex;
 }
 
-/* Loading, error, no-data */
 .loading, .error, .no-data {
   display: flex;
   flex-direction: column;
@@ -295,31 +307,52 @@ swiper-container::part(wrapper) {
   width: 100vw;
   height: 100vh;
   text-align: center;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.95);
+  position: relative;
+}
+
+.loading::before, .error::before, .no-data::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: -1;
 }
 
 .loading h2, .error h2, .no-data h2 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
 }
 
 .error button, .no-data button {
-  background: #FFE142;
-  color: #000;
-  border: none;
+  background: rgba(255, 225, 66, 0.9);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.9);
   padding: 15px 35px;
   border-radius: 25px;
   font-size: 1.2rem;
   cursor: pointer;
   margin-top: 2rem;
-  transition: all 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: 'SF Compact Display Medium', sans-serif;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 .error button:hover, .no-data button:hover {
-  background: #42C6FF;
-  transform: translateY(-2px);
+  background: rgba(66, 198, 255, 0.9);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
-
-
 </style>

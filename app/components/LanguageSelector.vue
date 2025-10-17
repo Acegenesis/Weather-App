@@ -3,7 +3,7 @@
     <button 
       class="language-button"
       @click="toggleDropdown"
-      :style="{ backgroundColor: backgroundColor }"
+      :style="glassStyles"
     >
       <span class="current-language">{{ currentLocale.name }}</span>
       <svg 
@@ -33,28 +33,36 @@
 </template>
 
 <script setup>
-// Props
+import useGlassmorphism from '@/composables/useGlassmorphism'
+
 const props = defineProps({
-  backgroundColor: {
+  currentColor: {
     type: String,
-    default: 'rgba(255, 255, 255, 0.1)'
+    default: '#42C6FF'
   }
 })
 
-// i18n
+const { getGlassStyle } = useGlassmorphism()
+
+const glassStyles = computed(() => {
+  console.log('LanguageSelector received color:', props.currentColor)
+  return getGlassStyle(props.currentColor, 'button')
+})
+
 const { locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 
-// État local
 const isOpen = ref(false)
 
-// Computed
+watch(() => props.currentColor, (newColor, oldColor) => {
+  console.log('LanguageSelector color changed from', oldColor, 'to', newColor)
+}, { immediate: true })
+
 const availableLocales = computed(() => locales.value || [])
 const currentLocale = computed(() => 
   availableLocales.value.find(l => l.code === locale.value) || availableLocales.value[0]
 )
 
-// Méthodes
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value
 }
@@ -64,13 +72,11 @@ const changeLanguage = async (newLocale) => {
     await navigateTo(localePath('/', newLocale))
     isOpen.value = false
   } catch (error) {
-    // Fallback: changer juste la locale
     await setLocale(newLocale)
     isOpen.value = false
   }
 }
 
-// Fermer le dropdown quand on clique en dehors
 onMounted(() => {
   const handleClickOutside = (event) => {
     const target = event.target
@@ -97,26 +103,18 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 20px;
+  padding: 10px 18px;
   border: none;
-  border-radius: 25px;
-  background-color: rgba(0, 0, 0, 0.2);
-  color: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
   font-family: 'SF Compact Display Medium', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .language-button:hover {
-  background-color: rgba(0, 0, 0, 0.3);
   transform: translateY(-1px);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
-  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .current-language {
@@ -125,7 +123,7 @@ onMounted(() => {
 
 .chevron {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .chevron-open {
@@ -137,14 +135,15 @@ onMounted(() => {
   top: 100%;
   left: 0;
   right: 0;
-  margin-top: 8px;
-  background: rgba(0, 0, 0, 0.9);
-  border-radius: 15px;
-  backdrop-filter: blur(20px);
+  margin-top: 6px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
   overflow: hidden;
   z-index: 1000;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .language-option {
