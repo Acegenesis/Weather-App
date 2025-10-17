@@ -18,7 +18,7 @@
       </svg>
     </button>
     
-    <div v-if="isOpen" class="language-dropdown">
+    <div v-if="isOpen" class="language-dropdown" :style="dropdownGlassStyles">
       <button 
         v-for="loc in availableLocales" 
         :key="loc.code"
@@ -47,6 +47,10 @@ const { getGlassStyle } = useGlassmorphism()
 const glassStyles = computed(() => {
   console.log('LanguageSelector received color:', props.currentColor)
   return getGlassStyle(props.currentColor, 'button')
+})
+
+const dropdownGlassStyles = computed(() => {
+  return getGlassStyle(props.currentColor, 'card')
 })
 
 const { locale, locales, setLocale } = useI18n()
@@ -136,14 +140,10 @@ onMounted(() => {
   left: 0;
   right: 0;
   margin-top: 6px;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: 12px;
   overflow: hidden;
   z-index: 1000;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .language-option {
@@ -152,13 +152,13 @@ onMounted(() => {
   padding: 14px 20px;
   border: none;
   background: transparent;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
   font-family: 'SF Compact Display Medium', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 15px;
   text-align: left;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .language-option:last-child {
@@ -166,27 +166,15 @@ onMounted(() => {
 }
 
 .language-option:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 1);
-  transform: translateX(4px);
+  background-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 1);
 }
 
 .language-option.active {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 1);
+  background-color: rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 1);
   font-weight: 700;
   position: relative;
-}
-
-.language-option.active:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, #FFE142, #42C6FF, #FF64D4);
-  border-radius: 0 2px 2px 0;
 }
 
 /* Responsive */
